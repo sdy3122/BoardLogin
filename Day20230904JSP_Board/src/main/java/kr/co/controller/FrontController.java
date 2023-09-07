@@ -117,7 +117,7 @@ public class FrontController extends HttpServlet {
 			} else {
 				try {
 					System.out.println("로그 : 마이페이지로 이동");
-					forward = new Mypage().execute(request, response);
+					forward = new MypageAction().execute(request, response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -151,7 +151,6 @@ public class FrontController extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 

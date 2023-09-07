@@ -22,9 +22,8 @@ public class MainAction implements Action {
 		
 		//3.로직처리
 		BoardDAO dao = new BoardDAO();
-		BoardVO vo = new BoardVO();
-		ArrayList<BoardVO> datas = dao.selectAll(vo);
-		req.setAttribute("data", datas);
+		ArrayList<BoardVO> datas = dao.selectAll();
+		req.setAttribute("dyoung", datas);
 		
 		return forward;
 	}

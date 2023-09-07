@@ -24,7 +24,7 @@ public class BoardAction implements Action {
 			forward.setPath("/main.do");
 			forward.setRedirect(true);
 		} else {
-			req.setAttribute("data", vo);
+			req.setAttribute("dyoung", vo);
 			forward.setPath("/board.jsp");
 			forward.setRedirect(false);
 		}

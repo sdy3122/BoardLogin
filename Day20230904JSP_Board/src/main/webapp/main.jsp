@@ -1,18 +1,27 @@
-<%@page import="kr.co.board.BoardVO"%>
-<%@page import="java.util.ArrayList"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page errorPage="error.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script type="text/javascript">
+	function check(bid) {
+		checkBid = prompt('상세페이지로 이동하기 위해 번호를 입력하세요');
+		location.href = "board.do?bid=" + checkBid;
+	}
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>게시판전체출력페이지</title>
 </head>
 <body>
-	<%
+	<!-- 어차피 action클래스에서 arraylist생성후 'data'에 담아서 만들필요없음 -->
+	<%-- <jsp:useBean id="datas" class="java.util.ArrayList" scope="request"></jsp:useBean> --%>
+	<%-- <%
 	ArrayList<BoardVO> datas = (ArrayList<BoardVO>) request.getAttribute("data");
-	%>
+	%> --%>
 	<h1>게시판페이지</h1>
 	<table border="1">
 		<tr>
@@ -20,25 +29,46 @@
 			<th>글작성자</th>
 			<th>작성일</th>
 		</tr>
-		<%
+		<c:forEach var="sdy" items="${dyoung}">
+			<%-- <%
 		for (int i = 0; i < datas.size(); i++) {
 			BoardVO vo = datas.get(i);
-		%>
-		<tr>
-			<td><a href="board.do?bid=<%=vo.getBid()%>" /><%=vo.getBid()%></td>
-			<td><%=vo.getWriter()%></td>
-			<td><%=vo.getRegdate()%></td>
-		</tr>
-		<%
-		}
-		%>
+		%> --%>
+			<tr>
+				<td><a href="board.do?bid=${sdy.bid}">${sdy.bid}</a></td>
+				<td>${sdy.writer}</td>
+				<td>${sdy.regdate}</td>
+			</tr>
+		</c:forEach>
+
 	</table>
-	<%if (request.getSession(false).getAttribute("check") == null || !request.isRequestedSessionIdValid()) { %>
+	<!-- JSTL의 if, else if 문 -->
+	<c:choose>
+		<c:when test="${empty check}">
+			<a href="javascript:check(${sdy.bid})">게시판상세페이지</a>
+			<a href="login.do">로그인</a>
+		</c:when>
+		<c:otherwise>
+			<a href="javascript:check(${sdy.bid})">게시판상세페이지</a>
+			<a href="insert.jsp">글작성</a>
+			<a href="logout.do">로그아웃</a>
+			<a href="mypage.do">마이페이지</a>
+		</c:otherwise>
+	</c:choose>
+	<%-- <%
+	if (request.getSession(false).getAttribute("check") == null || !request.isRequestedSessionIdValid()) {
+	%>
+	<a href="javascript:check(${sdy.bid})">게시판상세페이지</a>
 	<a href="login.do">로그인</a>
-	<%} else { %>
+	<%
+	} else {
+	%>
+	<a href="javascript:check(${sdy.bid})">게시판상세페이지</a>
 	<a href="insert.jsp">글작성</a>
 	<a href="logout.do">로그아웃</a>
 	<a href="mypage.do">마이페이지</a>
-	<%} %>
+	<%
+	}
+	%> --%>
 </body>
 </html>

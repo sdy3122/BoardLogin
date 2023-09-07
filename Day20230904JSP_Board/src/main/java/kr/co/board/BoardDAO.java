@@ -71,7 +71,7 @@ public class BoardDAO {
 		JDBCUtil.disconnect(pstmt, conn);
 		return data;	
 	}
-	public ArrayList<BoardVO> selectAll(BoardVO vo){
+	public ArrayList<BoardVO> selectAll(){
 		ArrayList<BoardVO> datas = new ArrayList<BoardVO>();
 		conn = JDBCUtil.connect();
 		

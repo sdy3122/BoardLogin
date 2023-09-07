@@ -3,8 +3,11 @@ package kr.co.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class Mypage implements Action {
+import kr.co.member.MemberVO;
+
+public class MypageAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -13,11 +16,14 @@ public class Mypage implements Action {
 		res.setCharacterEncoding("UTF-8");
 		// 2. output
 		ActionForward forward = new ActionForward();
+		HttpSession session = req.getSession(false);
+		System.out.println("세션 : " + session);
+		req.setAttribute("id", session.getAttribute("mid"));
+		req.setAttribute("pw", session.getAttribute("mpw"));
+		req.setAttribute("name", session.getAttribute("mname"));
+		
 		forward.setPath("/mypage.jsp");
 		forward.setRedirect(false);
-
-		// 3.로직처리
-		
 		return forward;
 	}
 
