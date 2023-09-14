@@ -11,7 +11,24 @@
 		location.href = "board.do?bid=" + checkBid;
 	}
 </script>
-
+<style type="text/css">
+#bMargin{
+position:absolute;
+top : 0px;
+left : 20px;
+margin-bottom: 10px;
+}
+b{
+color:#f5a8b6;
+}
+table{
+position:relative;
+}
+a{
+color : green;
+text-decoration: none;
+}
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>게시판전체출력페이지</title>
@@ -23,6 +40,11 @@
 	ArrayList<BoardVO> datas = (ArrayList<BoardVO>) request.getAttribute("data");
 	%> --%>
 	<h1>게시판페이지</h1>
+	<c:if test="${!empty check}">
+	<div id="bMargin">
+	<b>${sessionScope.data.mname}님 환영합니다</b>
+	</div>
+	</c:if>
 	<table border="1">
 		<tr>
 			<th>글번호</th>
@@ -35,7 +57,7 @@
 			BoardVO vo = datas.get(i);
 		%> --%>
 			<tr>
-				<td><a href="board.do?bid=${sdy.bid}">${sdy.bid}</a></td>
+				<td align="center"><a href="board.do?bid=${sdy.bid}">${sdy.bid}</a></td>
 				<td>${sdy.writer}</td>
 				<td>${sdy.regdate}</td>
 			</tr>
@@ -45,10 +67,12 @@
 	<!-- JSTL의 if, else if 문 -->
 	<c:choose>
 		<c:when test="${empty check}">
+			<br>
 			<a href="javascript:check(${sdy.bid})">게시판상세페이지</a>
 			<a href="login.do">로그인</a>
 		</c:when>
 		<c:otherwise>
+			<br>
 			<a href="javascript:check(${sdy.bid})">게시판상세페이지</a>
 			<a href="insert.jsp">글작성</a>
 			<a href="logout.do">로그아웃</a>

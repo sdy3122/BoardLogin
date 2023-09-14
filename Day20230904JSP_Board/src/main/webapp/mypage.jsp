@@ -17,7 +17,7 @@
 		<table border="1">
 			<tr>
 				<td>아이디</td>
-				<!-- 세션값을 빼올때는 ${sessionScope.세션이름.세션에있는값} 으로 작성하면된다 -->
+				<!-- 세션값을 빼올때는 sessionScope.세션이름.세션에있는값 으로 작성하면된다 -->
 				<td><input type="text" name="mid" value="${sessionScope.data.mid}"
 					readonly="readonly"></td>
 			</tr>
